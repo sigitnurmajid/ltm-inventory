@@ -1,0 +1,103 @@
+@layout('layouts/main')
+@set('title', 'Categories')
+
+@section('body')
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Categories</h6>
+      <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+        Add Data
+      </button>
+      <br>
+      <br>
+      @if(flashMessages.get('error') === 'false')
+      <div class="card bg-success height">
+        <div class="card-body text-light">
+          Save Data Successed
+        </div>
+      </div>
+      @elseif(flashMessages.get('error') === 'true')
+      <div class="card bg-danger">
+        <div class="card-body text-light">
+          Save Data Failed
+        </div>
+      </div>
+      @endif
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th style="width:75%">Name</th>
+              <th style="width:15%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(category in categories)
+            <tr>
+              <td>{{category.name}}</td>
+              <td>
+                <button type="button" class="btn btn-info float-left" data-toggle="modal" data-target="#editExampleModal">
+                  Edit
+                </button>
+                <form action="{{route('master.category.destroy', [category.id],{qs:{_method: 'DELETE'}})}}"
+                  method="post">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+            </tr>
+            @endeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Category Data</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{route('master.category.store')}}" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Category name</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editExampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Category Data</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Category name</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@end

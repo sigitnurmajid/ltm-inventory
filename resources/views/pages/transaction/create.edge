@@ -1,0 +1,71 @@
+@layout('layouts/main')
+@set('title', 'Transaction')
+
+@section('body')
+<div class="col-lg-8">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Transaction Data</h6>
+    </div>
+    @if(flashMessages.get('error') === 'false')
+    <div class="px-5 pt-2">
+      <div class="card bg-success">
+        <div class="card-body text-light">
+          {{flashMessages.get('method')}} Data Successed
+        </div>
+      </div>
+    </div>
+    @elseif(flashMessages.get('error') === 'true')
+    <div class="px-5 py-2">
+      <div class="card bg-danger">
+        <div class="card-body text-light">
+          {{flashMessages.get('method')}} Data Failed : {{flashMessages.get('message')}}
+        </div>
+      </div>
+    </div>
+    @endif
+    <div class="card-body">
+      <form action="{{route('utilities.transaction.store')}}" method="POST" enctype="multipart/form-data">
+        <div class="mb-3 border p-3 shadow-sm rounded">
+          <label class="form-label">Type</label>
+          <hr>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="type" value="IN" required>
+            <label class="form-check-label">IN</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="type" value="OUT" required>
+            <label class="form-check-label">OUT</label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Product</label>
+          <select class="form-control form-control-sm" name="product" id="select_product_box" required>
+            <option selected></option>
+            @each(product in products)
+            <option value="{{product.id}}">{{product.name}}</option>
+            @end
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Qty</label>
+          <input type="number" name="qty" class="form-control form-control-sm" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Note</label>
+          <textarea type="text" name="note" class="form-control form-control-sm" rows="5" required></textarea>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary float-right">Save changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+@end
+
+@section('script')
+<script>
+  $('#select_product_box').select2()
+  $('#select_type_box').select2()
+</script>
+@end

@@ -1,0 +1,64 @@
+@layout('layouts/main')
+@set('title', 'Categories')
+
+@section('body')
+<div class="col-lg-8">
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Location</h6>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">
+          Edit
+        </button>
+        <form action="{{route('master.location.destroy', [location.id],{qs:{_method: 'DELETE'}})}}" method="post">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    <div class="card-body container">
+      <div class="row gx-5">
+        <div class="col">
+          @if(location.picture !== 'null')
+          <img src="http://127.0.0.1:3334/uploads/{{location.picture}}" class="img-thumbnail" width="130" height="130">
+          @else
+          <label>No picture</label>
+          @end
+        </div>
+        <div class="col">
+          <div class="mb-3">
+            <label class="form-label">Location Name</label>
+            <input type="text" class="form-control" name="name" value="{{location.name}}" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{route('master.location.update', [location.id],{qs:{_method: 'PUT'}})}}" method="POST"
+          enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label">Location Name</label>
+            <input type="text" class="form-control" name="name" value="{{location.name}}">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Upload Image</label>
+            <input class="form-control" type="file" name="picture">
+          </div>
+          <button type="submit" class="btn btn-primary float-right">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+@end

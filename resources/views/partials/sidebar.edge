@@ -1,0 +1,58 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+  <!-- Sidebar - Brand -->
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+    <div class="sidebar-brand-text mx-3">Dashboard <sup>LTM</sup></div>
+  </a>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <li class="nav-item {{request.url() === route('dashboard') ? 'active' : '' }}">
+    <a class="nav-link" href="/">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span>
+    </a>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Interface
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item {{request.url().split('/')[1] === 'master' ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+      aria-controls="collapseTwo">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Master Data</span>
+    </a>
+    <div id="collapseTwo" class="collapse {{request.url().split('/')[1] === 'master' ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item {{request.url().split('/')[2] === 'category' ? 'active' : '' }}" href="{{route('master.category.index')}}">Categories</a>
+        <a class="collapse-item {{request.url().split('/')[2] === 'location' ? 'active' : '' }}" href="{{route('master.location.index')}}">Locations</a>
+        <a class="collapse-item {{request.url().split('/')[2] === 'unit' ? 'active' : '' }}" href="{{route('master.unit.index')}}">Units</a>
+        <a class="collapse-item {{request.url().split('/')[2] === 'product' ? 'active' : '' }}" href="{{route('master.product.index')}}">Products</a>
+      </div>
+    </div>
+  </li>
+
+  <li class="nav-item  {{request.url().split('/')[1] === 'utilities' ? 'active' : '' }}">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true"
+      aria-controls="collapseUtilities">
+      <i class="fas fa-fw fa-wrench"></i>
+      <span>Utilities</span>
+    </a>
+    <div id="collapseUtilities" class="collapse {{request.url().split('/')[1] === 'utilities' ? 'show' : '' }}" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        {{--  <a class="collapse-item" href="">BOMs</a>
+        <a class="collapse-item" href="">Job Order</a>  --}}
+        <a class="collapse-item {{request.url().split('/')[2] === 'transaction' ? 'active' : '' }}" href="{{route('utilities.transaction.index')}}">Transaction</a>
+      </div>
+    </div>
+  </li>
+</ul>

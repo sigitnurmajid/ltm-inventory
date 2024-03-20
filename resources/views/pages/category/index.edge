@@ -1,0 +1,53 @@
+@layout('layouts/main')
+@set('title', 'Categories')
+
+@section('body')
+<div class="container-fluid">
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary float-left">Categories</h6>
+      <a href="{{route('master.category.create')}}" type="button" class="btn btn-primary float-right">+ Add Data</a>
+      <br>
+      <br>
+      @if(flashMessages.get('error') === 'false')
+      <div class="card bg-success height">
+        <div class="card-body text-light">
+          {{flashMessages.get('method')}} Data Successed
+        </div>
+      </div>
+      @elseif(flashMessages.get('error') === 'true')
+      <div class="card bg-danger">
+        <div class="card-body text-light">
+          {{flashMessages.get('method')}} Data Failed
+        </div>
+      </div>
+      @endif
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th style="width:90%">Name</th>
+              <th style="width:10%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @each(category in categories)
+            <tr>
+              <td>{{category.name}}</td>
+              <td>
+                <a type="button" class="btn btn-info float-left" href="{{route('master.category.show', [category.id])}}">Detail</a>
+                </form>
+              </td>
+            </tr>
+            @endeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+@end
